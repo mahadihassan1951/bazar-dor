@@ -29,7 +29,7 @@ const SignIn = () => {
       email,
       password,
       callbackURL: "/",
-    });
+    }); 
 
     if (error) {
       console.error("Sign in error:", error);
