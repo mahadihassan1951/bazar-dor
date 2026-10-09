@@ -1,10 +1,8 @@
-
 "use client";
-import {Button} from "@heroui/react";
-import {Icon} from "@iconify/react";
+import { Button } from "@heroui/react";
+import { Icon } from "@iconify/react";
 import React from "react";
 import {
-  
   FieldError,
   FieldGroup,
   Fieldset,
@@ -17,41 +15,38 @@ import Link from "next/link";
 import { signUp } from "@/lib/auth-client";
 
 const SignUp = () => {
-  
-const onSubmit = async (e) => {
-  e.preventDefault();
+  const onSubmit = async (e) => {
+    e.preventDefault();
 
-  const formData = new FormData(e.currentTarget);
+    const formData = new FormData(e.currentTarget);
 
-  const name = String(formData.get("name") ?? "").trim();
-  const email = String(formData.get("email") ?? "").trim();
-  const password = String(formData.get("password") ?? "");
-  const passwordConfirmation = String(
-    formData.get("passwordConfirmation") ?? ""
-  );
+    const name = String(formData.get("name") ?? "").trim();
+    const email = String(formData.get("email") ?? "").trim();
+    const password = String(formData.get("password") ?? "");
+    const passwordConfirmation = String(
+      formData.get("passwordConfirmation") ?? "",
+    );
 
-  if (password !== passwordConfirmation) {
-    alert("দুটি পাসওয়ার্ড মিলছে না");
-    return;
-  }
+    if (password !== passwordConfirmation) {
+      alert("দুটি পাসওয়ার্ড মিলছে না");
+      return;
+    }
 
-  const { data: signUpData, error } = await signUp.email({
-    name,
-    email,
-    password,
-    callbackURL: "/",
-  });
+    const { data: signUpData, error } = await signUp.email({
+      name,
+      email,
+      password,
+      callbackURL: "/",
+    });
 
-  if (error) {
-    console.error("Sign up error:", error);
-    alert(error.message || "অ্যাকাউন্ট তৈরি করা যায়নি");
-    return;
-  }
+    if (error) {
+      console.error("Sign up error:", error);
+      alert(error.message || "অ্যাকাউন্ট তৈরি করা যায়নি");
+      return;
+    }
 
-  console.log("Sign up successful:", signUpData);
-};
-
-
+    console.log("Sign up successful:", signUpData);
+  };
 
   return (
     <main className="flex min-h-screen items-center justify-center bg-[#F0F5EF] px-5 py-8">
@@ -74,23 +69,22 @@ const onSubmit = async (e) => {
         >
           <Fieldset className="w-full">
             <FieldGroup className="gap-3">
-
-                <TextField
-            isRequired
-            name="name"
-            validate={(value) => {
-              if (value.length < 3) {
-                return "Name must be at least 3 characters";
-              }
-              return null;
-            }}
-          >
-            <Label className="mb-1 block text-lg font-medium text-[#26352A]">
-              নাম
-            </Label>
-            <Input className="text-sm" placeholder="নাম লেখুন" />
-            <FieldError />
-          </TextField>
+              <TextField
+                isRequired
+                name="name"
+                validate={(value) => {
+                  if (value.length < 3) {
+                    return "Name must be at least 3 characters";
+                  }
+                  return null;
+                }}
+              >
+                <Label className="mb-1 block text-lg font-medium text-[#26352A]">
+                  নাম
+                </Label>
+                <Input className="text-sm" placeholder="নাম লেখুন" />
+                <FieldError />
+              </TextField>
               {/* Email */}
               <TextField
                 name="email"
@@ -102,10 +96,7 @@ const onSubmit = async (e) => {
                   ইমেইল
                 </Label>
 
-                <Input
-                  placeholder="আপনার ইমেইল লিখুন"
-                  className="text-sm"
-                />
+                <Input placeholder="আপনার ইমেইল লিখুন" className="text-sm" />
 
                 <FieldError />
               </TextField>
@@ -122,10 +113,7 @@ const onSubmit = async (e) => {
                   পাসওয়ার্ড
                 </Label>
 
-                <Input
-                  placeholder="পাসওয়ার্ড লিখুন"
-                  className="text-sm"
-                />
+                <Input placeholder="পাসওয়ার্ড লিখুন" className="text-sm" />
 
                 <FieldError />
               </TextField>
@@ -168,36 +156,36 @@ const onSubmit = async (e) => {
           {/* Social Sign In */}
           <div className="flex w-full gap-2">
             <Button className="w-full" variant="tertiary">
-        <Icon icon="devicon:google" />
-        Sign up with Google
-      </Button>
+              <Icon icon="devicon:google" />
+              Sign up with Google
+            </Button>
 
-           <Button className="w-full" variant="tertiary">
-        <Icon icon="mdi:github" />
-        Sign up with GitHub
-      </Button>
+            <Button className="w-full" variant="tertiary">
+              <Icon icon="mdi:github" />
+              Sign up with GitHub
+            </Button>
           </div>
 
           {/* Sign Up Link */}
           <p className="mt-4 w-full text-center text-[11px] text-gray-600">
             অ্যাকাউন্ট নেই?{" "}
             <a
-              href="/signup"
+              href="/sign-in"
               className="font-semibold text-emerald-600 hover:text-emerald-700"
             >
-              সাইন আপ করুন
+              সাইন ইন করুন
             </a>
           </p>
         </Form>
 
         {/* Back Link */}
         <div className="mt-5 text-center">
-       <Link
-  href="/"
-  className="text-[11px] text-gray-500 transition hover:text-emerald-600"
->
-  ← হোম পেজে ফিরে যান
-</Link>
+          <Link
+            href="/"
+            className="text-[11px] text-gray-500 transition hover:text-emerald-600"
+          >
+            ← হোম পেজে ফিরে যান
+          </Link>
         </div>
       </div>
     </main>
@@ -205,4 +193,3 @@ const onSubmit = async (e) => {
 };
 
 export default SignUp;
-
