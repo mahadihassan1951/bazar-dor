@@ -1,4 +1,3 @@
-
 "use client";
 
 import React from "react";
@@ -25,11 +24,11 @@ const SignIn = () => {
     const email = String(formData.get("email") ?? "").trim();
     const password = String(formData.get("password") ?? "");
 
-    const { data:signInData, error } = await signIn.email({
+    const { data: signInData, error } = await signIn.email({
       email,
       password,
       callbackURL: "/",
-    }); 
+    });
 
     if (error) {
       console.error("Sign in error:", error);
@@ -37,8 +36,13 @@ const SignIn = () => {
       return;
     }
 
-    console.log( signInData);
-    
+    console.log(signInData);
+  };
+
+  const logIn = async () => {
+    const data = await authClient.signIn.social({
+      provider: "google",
+    });
   };
 
   return (
@@ -46,9 +50,7 @@ const SignIn = () => {
       <div className="w-full max-w-[450px]">
         {/* Heading */}
         <div className="mb-5 text-center">
-          <h1 className="text-2xl font-bold text-[#17251B]">
-            সাইন ইন করুন
-          </h1>
+          <h1 className="text-2xl font-bold text-[#17251B]">সাইন ইন করুন</h1>
 
           <p className="mt-3 text-[16px] leading-5 text-gray-500">
             বিস্তারিত দাম, বাজার তুলনা ও প্রোফাইল দেখতে অ্যাকাউন্টে ঢুকুন।
@@ -69,9 +71,7 @@ const SignIn = () => {
                 type="email"
                 className="w-full"
                 validate={(value) => {
-                  if (
-                    !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)
-                  ) {
+                  if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
                     return "সঠিক ইমেইল ঠিকানা লিখুন";
                   }
                   return null;
@@ -81,10 +81,7 @@ const SignIn = () => {
                   ইমেইল
                 </Label>
 
-                <Input
-                  className="text-sm"
-                  placeholder="আপনার ইমেইল লিখুন"
-                />
+                <Input className="text-sm" placeholder="আপনার ইমেইল লিখুন" />
 
                 <FieldError />
               </TextField>
@@ -140,6 +137,7 @@ const SignIn = () => {
           <div className="flex w-full flex-col gap-2 sm:flex-row">
             <Button
               type="button"
+              onClick={logIn}
               variant="tertiary"
               className="w-full"
               onPress={async () => {
@@ -206,4 +204,3 @@ const SignIn = () => {
 };
 
 export default SignIn;
-

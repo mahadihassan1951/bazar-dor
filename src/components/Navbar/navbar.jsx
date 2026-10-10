@@ -1,46 +1,57 @@
 "use client";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, Button } from "@heroui/react";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
+import NextImage from "next/image";
+import logoImg from "../../../public/logo-icon.png";
 
 export default function Navbar() {
-  const links = (
-    <>
-      <ul className="hidden items-center gap-4 md:flex">
-        <li>
-          <Link href="#">Features</Link>
-        </li>
-      </ul>
-    </>
-  );
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [bengaliDate, setBengaliDate] = useState("");
   const router = useRouter();
 
   const { data: session } = authClient.useSession();
-  console.log("Session data:", session);
+
+  // ব্রাউজারে পেজ লোড হওয়ার পর ডেট জেনারেট হবে, ফলে সার্ভার প্রি-রেন্ডার এরর আসবে না
+  useEffect(() => {
+    try {
+      const options = {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      };
+      const formattedDate = new Intl.DateTimeFormat("bn-BD", options).format(
+        new Date(),
+      );
+      setBengaliDate(formattedDate);
+    } catch (error) {
+      console.error("Date formatting error:", error);
+    }
+  }, []);
 
   const handleLogout = async () => {
     await authClient.signOut({
       fetchOptions: {
         onSuccess: () => {
-          router.push("/sign-in"); // redirect to login page
+          router.push("/sign-in");
         },
       },
     });
   };
 
   return (
-    <nav className="sticky top-0 z-40 w-full border-b border-separator bg-background/70 backdrop-blur-lg">
-      <header className="mx-auto flex h-16 max-w-5xl items-center justify-between px-6">
-        <div className="flex items-center gap-4">
+    <nav className="sticky top-0 z-40 w-full border-b border-divider bg-background/80 backdrop-blur-md">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        {/* Left Side: Logo & Date */}
+        <div className="flex items-center gap-3">
           <button
-            className="md:hidden"
+            className="md:hidden p-2 rounded-lg text-default-600 hover:bg-default-100 focus:outline-none"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
             aria-expanded={isMenuOpen}
           >
-            <span className="sr-only">Menu</span>
             <svg
               className="h-6 w-6"
               fill="none"
@@ -64,83 +75,63 @@ export default function Navbar() {
               )}
             </svg>
           </button>
-          <div className="flex items-center gap-3">
-            <Link href="/" className=""></Link>
-          </div>
-        </div>
-        <ul className="hidden items-center gap-4 md:flex">
-          <li>
-            <Link href="#">Features</Link>
-          </li>
-          <li>
-            <Link
-              href="#"
-              className="font-medium text-accent"
-              aria-current="page"
-            >
-              Dashboard
-            </Link>
-          </li>
-          <li>
-            <Link href="#">Pricing</Link>
-          </li>
-        </ul>
-        <div className="hidden items-center gap-4 md:flex">
-          {session?.user ? (
-            <>
-              {" "}
-              <button
-                onClick={handleLogout}
-                className="rounded-md bg-primary text-primary-foreground hover:bg-primary/80 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+
+          <Link href="/" className="flex items-center gap-2.5 no-underline">
+            <div className="flex items-center justify-center p-1 bg-green-500 border rounded-xl overflow-hidden">
+              <NextImage
+                src={logoImg}
+                alt="Logo"
+                width={28}
+                height={28}
+                className="object-contain"
+              />
+            </div>
+            <div className="flex flex-col items-start">
+              <span className="text-lg font-extrabold text-accent leading-tight">
+                বাজার দর
+              </span>
+              <span
+                className="text-[10px] text-default-400 leading-none mt-0.5"
+                suppressHydrationWarning
               >
-                লগ আউট
-              </button>
-            </>
-          ) : (
-            <>
-              {" "}
-              <Link href="/sign-in">সাইন ইন</Link>{" "}
-              <Link href="/sign-up">
-                {" "}
-                <Button>সাইন আপ</Button>{" "}
-              </Link>
-            </>
-          )}
-        </div>
-      </header>
-      <header className="mx-auto flex h-16 max-w-5xl items-center justify-between px-6 md:hidden">
-        <div className="flex items-center gap-3">
-          <Link href="/" className="text-lg font-bold text-accent">
-            বাজার দর
+                {bengaliDate || "লোড হচ্ছে..."}
+              </span>
+            </div>
           </Link>
         </div>
-      </header>
-      {isMenuOpen && (
-        <div className="border-t border-separator md:hidden">
-          <ul className="flex flex-col gap-2 p-4">
-            <li>
-              <Link href="#" className="block py-2">
-                Features
+
+        {/* Right Side: Desktop Auth Actions */}
+        <div className="hidden md:flex items-center gap-4">
+          {session?.user ? (
+            <Button
+              onClick={handleLogout}
+              color="danger"
+              variant="flat"
+              size="sm"
+            >
+              লগ আউট
+            </Button>
+          ) : (
+            <div className="flex items-center gap-3">
+              <Link
+                href="/sign-in"
+                className="text-sm font-medium no-underline"
+              >
+                সাইন ইন
               </Link>
-            </li>
-            <li>
-              <Link href="#" className="block py-2 font-medium text-accent">
-                Dashboard
+              <Link href="/sign-up" className="no-underline">
+                <Button color="success" size="sm">
+                  সাইন আপ
+                </Button>
               </Link>
-            </li>
-            <li>
-              <Link href="#" className="block py-2">
-                Pricing
-              </Link>
-            </li>
-            <li className="mt-4 flex flex-col gap-2 border-t border-separator pt-4">
-              <Link href="/sign-in">সাইন ইন</Link>
-              <Link href="/sign-up">
-                <Button>সাইন আপ</Button>
-              </Link>
-            </li>
-          </ul>
+            </div>
+          )}
         </div>
+      </div>
+
+      {/* Mobile & Tablet Dropdown Menu */}
+      {isMenuOpen && (
+        <div className="md:hidden border-t border-divider bg-background px-4 pt-4 pb-6 shadow-xl transition-all"></div>
       )}
     </nav>
   );
