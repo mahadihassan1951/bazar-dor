@@ -24,9 +24,12 @@ async function CategoryContent({ params }) {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
-      <CategoryHeaderSection key={products?.id} products={products} />
-
-      <ProductsCard key={products?.id} products={products} />
+      
+        <CategoryHeaderSection key={products[0]?.id} p={products[0]} />
+     
+      {products.map((p) => (
+        <ProductsCard key={p.id} product={p} />
+      ))}
     </div>
   );
 }
