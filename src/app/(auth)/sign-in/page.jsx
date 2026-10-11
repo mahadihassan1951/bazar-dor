@@ -106,15 +106,7 @@ const SignIn = () => {
                 <FieldError />
               </TextField>
 
-              {/* Forgot Password */}
-              <div className="flex justify-end">
-                <Link
-                  href="/forgot-password"
-                  className="text-sm font-medium text-emerald-600 transition hover:text-emerald-700"
-                >
-                  পাসওয়ার্ড ভুলে গেছেন?
-                </Link>
-              </div>
+            
 
               {/* Submit */}
               <Button

@@ -13,6 +13,7 @@ import {
 } from "@heroui/react";
 import Link from "next/link";
 import { signUp } from "@/lib/auth-client";
+import { signIn } from "@/lib/auth-client";
 
 const SignUp = () => {
   const onSubmit = async (e) => {
@@ -46,6 +47,12 @@ const SignUp = () => {
     }
 
     console.log("Sign up successful:", signUpData);
+  };
+
+  const logIn = async () => {
+    const data = await authClient.signIn.social({
+      provider: "google",
+    });
   };
 
   return (
@@ -155,9 +162,25 @@ const SignUp = () => {
 
           {/* Social Sign In */}
           <div className="flex w-full gap-2">
-            <Button className="w-full" variant="tertiary">
+            <Button
+              type="button"
+              onClick={logIn}
+              variant="tertiary"
+              className="w-full"
+              onPress={async () => {
+                const { error } = await signIn.social({
+                  provider: "google",
+                  callbackURL: "/",
+                });
+
+                if (error) {
+                  console.error("Google sign in error:", error);
+                  alert(error.message || "Google দিয়ে সাইন ইন করা যায়নি");
+                }
+              }}
+            >
               <Icon icon="devicon:google" />
-              Sign up with Google
+              Google দিয়ে সাইন ইন
             </Button>
 
             <Button className="w-full" variant="tertiary">

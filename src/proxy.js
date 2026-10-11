@@ -14,5 +14,5 @@ export async function proxy(request) {
 }
 
 export const config = {
-    matcher: ["/api/:path*"]
+     matcher: ["/profile", '/product/:path'],
 }
