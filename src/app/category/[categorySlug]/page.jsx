@@ -53,7 +53,7 @@ export default function CategoryProducts({ params }) {
         {/* ২. দ্বিতীয় অংশ: সার্চ ও সর্ট বার কার্ড */}
         <div className="bg-default-50 border border-divider rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xs">
           {/* সার্চ ইনপুট */}
-         <span></span>
+          <span></span>
 
           {/* ডানপাশের সাজান ড্রপডাউন */}
           <div className="flex items-center gap-2.5 w-full sm:w-auto justify-end">
@@ -73,9 +73,10 @@ export default function CategoryProducts({ params }) {
 
       {/* প্রোডাক্ট কার্ড গ্রিড */}
 
-      
-        <h2 className="">মোট {sortedProducts?.length || 0}টি পণ্য দেখানো হচ্ছে</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <h2 className="text-xl font-bold">
+        মোট {sortedProducts?.length || 0}টি পণ্য দেখানো হচ্ছে
+      </h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
         {sortedProducts?.map((product) => (
           <Suspense key={product?.id} fallback={<div>Loading...</div>}>
             <ProductsCard product={product} />
