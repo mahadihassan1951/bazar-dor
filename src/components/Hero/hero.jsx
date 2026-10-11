@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@heroui/react";
 
-export default function hero() {
+export default function Hero() {
   const [bengaliDate, setBengaliDate] = useState("");
 
   useEffect(() => {
@@ -26,10 +26,10 @@ export default function hero() {
   }, []);
 
   return (
-    <section className="max-w-7xl mx-auto px-4 py-6">
-      <div className="bg-default-50 border border-divider rounded-3xl p-6 sm:p-10 flex flex-col lg:flex-row items-center justify-between gap-8 shadow-xs">
+    <section className=" px-4 py-1">
+      <div className="bg-default-50 border border-divider rounded-3xl p-2 sm:p-10 flex flex-col lg:flex-row items-center justify-between gap-8 shadow-xs">
         {/* Bam pasher text ebong button section */}
-        <div className="flex flex-col items-start space-y-4 max-w-xl">
+        <div className="flex flex-col items-start space-y-2 max-w-xl">
           {/* Real-time date badge */}
           <div
             className="px-3 py-1 rounded-full bg-success-50 text-success text-xs font-medium"
@@ -64,7 +64,7 @@ export default function hero() {
         </div>
 
         {/* Dan pasher hero chobi section */}
-        <div className="flex-shrink-0 relative w-full lg:w-[420px] h-[240px] sm:h-[280px] flex items-center justify-center">
+        <div className="flex-shrink-0 relative w-full lg:w-[400px] h-[220px] sm:h-[280px] flex items-center justify-center">
           <Image
             src="/bazar-hero.png"
             alt="Bazar Hero"
