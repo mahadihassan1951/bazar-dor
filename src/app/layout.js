@@ -4,6 +4,8 @@ import Navbar from "@/components/Navbar/navbar";
 
 import CategoriesPage from "@/components/Categories/Categories";
 import { Suspense } from "react";
+import Footer from "@/components/Footer/footer";
+import Marquee from "@/components/Marquee/marquee";
 
 
 const geistSans = Geist({
@@ -31,8 +33,10 @@ export default function RootLayout({ children }) {
        <Suspense fallback={<div className="text-center py-10">লোড হচ্ছে...</div>}>
         <Navbar />
         <CategoriesPage />
+        <Marquee />
         <main className="flex-1">{children}</main>
         </Suspense>
+        <Footer />
         
       </body>
     </html>

@@ -3,6 +3,7 @@ import Hero from "@/components/Hero/hero";
 import ProductCard from "@/components/ProductsCard/productsCard";
 import AllProducts from "@/components/AllProducts/allProducts";
 
+
 const getProducts = async () => {
   const res = await fetch(`${baseUrl}/products`);
   const data = await res.json();
@@ -15,7 +16,9 @@ export default async function Home() {
   const upProducts = products.filter((p) => p.today > p.yesterday).slice(0, 6);
 
   return (
-    <div className="container mx-auto px-4 py-1 space-y-2">
+    <div>
+      
+      <div className="container mx-auto px-4 py-1 space-y-2">
       <Hero />
       <div className="
        py-4  px-4 ">
@@ -37,6 +40,7 @@ export default async function Home() {
           <AllProducts key={products.id} products={products} />
         </div>
       </div>
+    </div>
     </div>
   );
 }

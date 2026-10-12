@@ -12,8 +12,7 @@ import {
   TextField,
 } from "@heroui/react";
 import Link from "next/link";
-import { signUp } from "@/lib/auth-client";
-import { signIn } from "@/lib/auth-client";
+import { signUp, signIn } from "@/lib/auth-client";
 
 const SignUp = () => {
   const onSubmit = async (e) => {
@@ -49,10 +48,17 @@ const SignUp = () => {
     console.log("Sign up successful:", signUpData);
   };
 
-  const logIn = async () => {
-    const data = await authClient.signIn.social({
+  // গুগল সাইন ইন হ্যান্ডেল করার ফাংশন
+  const handleGoogleSignIn = async () => {
+    const { error } = await signIn.social({
       provider: "google",
+      callbackURL: "/",
     });
+
+    if (error) {
+      console.error("Google sign in error:", error);
+      alert(error.message || "Google দিয়ে সাইন ইন করা যায়নি");
+    }
   };
 
   return (
@@ -89,9 +95,10 @@ const SignUp = () => {
                 <Label className="mb-1 block text-lg font-medium text-[#26352A]">
                   নাম
                 </Label>
-                <Input className="text-sm" placeholder="নাম লেখুন" />
+                <Input className="text-sm" placeholder="নাম লিখুন" />
                 <FieldError />
               </TextField>
+
               {/* Email */}
               <TextField
                 name="email"
@@ -102,9 +109,7 @@ const SignUp = () => {
                 <Label className="mb-1 block text-lg font-medium text-[#26352A]">
                   ইমেইল
                 </Label>
-
                 <Input placeholder="আপনার ইমেইল লিখুন" className="text-sm" />
-
                 <FieldError />
               </TextField>
 
@@ -119,11 +124,10 @@ const SignUp = () => {
                 <Label className="mb-1 block text-lg font-medium text-[#26352A]">
                   পাসওয়ার্ড
                 </Label>
-
                 <Input placeholder="পাসওয়ার্ড লিখুন" className="text-sm" />
-
                 <FieldError />
               </TextField>
+
               <TextField
                 name="passwordConfirmation"
                 type="password"
@@ -134,12 +138,10 @@ const SignUp = () => {
                 <Label className="mb-1 block text-lg font-medium text-[#26352A]">
                   পাসওয়ার্ড নিশ্চিত করুন
                 </Label>
-
                 <Input
                   placeholder="পাসওয়ার্ড নিশ্চিত করুন"
                   className="text-sm"
                 />
-
                 <FieldError />
               </TextField>
 
@@ -164,34 +166,23 @@ const SignUp = () => {
           <div className="flex w-full gap-2">
             <Button
               type="button"
-              onClick={logIn}
               variant="tertiary"
               className="w-full"
-              onPress={async () => {
-                const { error } = await signIn.social({
-                  provider: "google",
-                  callbackURL: "/",
-                });
-
-                if (error) {
-                  console.error("Google sign in error:", error);
-                  alert(error.message || "Google দিয়ে সাইন ইন করা যায়নি");
-                }
-              }}
+              onPress={handleGoogleSignIn}
             >
               <Icon icon="devicon:google" />
               Google দিয়ে সাইন ইন
             </Button>
 
-            <Button className="w-full" variant="tertiary">
+            <Button className="w-full" variant="tertiary" type="button">
               <Icon icon="mdi:github" />
               Sign up with GitHub
             </Button>
           </div>
 
-          {/* Sign Up Link */}
+          {/* Sign In Link */}
           <p className="mt-4 w-full text-center text-[11px] text-gray-600">
-            অ্যাকাউন্ট নেই?{" "}
+            অ্যাকাউন্ট আছে?{" "}
             <a
               href="/sign-in"
               className="font-semibold text-emerald-600 hover:text-emerald-700"

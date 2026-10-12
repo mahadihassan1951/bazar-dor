@@ -103,19 +103,17 @@ export default function Navbar() {
         {/* Right Side: Desktop Auth Actions */}
         <div className="hidden md:flex items-center gap-4">
           {session?.user ? (
-            <Button
+            <button
               onClick={handleLogout}
-              color="danger"
-              variant="flat"
-              size="sm"
+              className="py-2 px-4 bg-[#0485F7] hover:bg-[#0486f7c0] text-white rounded-2xl text-sm font-medium transition"
             >
               লগ আউট
-            </Button>
+            </button>
           ) : (
             <div className="flex items-center gap-3">
               <Link
                 href="/sign-in"
-                className="text-sm font-medium no-underline"
+                className="text-sm font-medium no-underline py-1.5 px-2 hover:bg-[#16A34A] rounded-2xl"
               >
                 সাইন ইন
               </Link>
