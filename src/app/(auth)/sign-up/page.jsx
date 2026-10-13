@@ -61,6 +61,19 @@ const SignUp = () => {
     }
   };
 
+  // GitHub Sign In হ্যান্ডলার
+  const handleGithubSignIn = async () => {
+    const { error } = await signIn.social({
+      provider: "github",
+      callbackURL: "/",
+    });
+
+    if (error) {
+      console.error("GitHub sign in error:", error);
+      alert(error.message || "GitHub দিয়ে সাইন ইন করা যায়নি");
+    }
+  };
+
   return (
     <main className="flex min-h-screen items-center justify-center bg-[#F0F5EF] px-5 py-8">
       <div className="w-full max-w-[450px]">
@@ -174,9 +187,14 @@ const SignUp = () => {
               Google দিয়ে সাইন ইন
             </Button>
 
-            <Button className="w-full" variant="tertiary" type="button">
+            <Button
+              type="button"
+              variant="tertiary"
+              className="w-full"
+              onPress={handleGithubSignIn}
+            >
               <Icon icon="mdi:github" />
-              Sign up with GitHub
+              GitHub দিয়ে সাইন ইন
             </Button>
           </div>
 

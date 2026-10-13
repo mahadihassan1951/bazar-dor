@@ -20,7 +20,6 @@ const SignIn = () => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
-
     const email = String(formData.get("email") ?? "").trim();
     const password = String(formData.get("password") ?? "");
 
@@ -36,13 +35,33 @@ const SignIn = () => {
       return;
     }
 
-    console.log(signInData);
+    console.log("Sign in success:", signInData);
   };
 
-  const logIn = async () => {
-    const data = await authClient.signIn.social({
+  // Google Sign In হ্যান্ডলার
+  const handleGoogleSignIn = async () => {
+    const { error } = await signIn.social({
       provider: "google",
+      callbackURL: "/",
     });
+
+    if (error) {
+      console.error("Google sign in error:", error);
+      alert(error.message || "Google দিয়ে সাইন ইন করা যায়নি");
+    }
+  };
+
+  // GitHub Sign In হ্যান্ডলার
+  const handleGithubSignIn = async () => {
+    const { error } = await signIn.social({
+      provider: "github",
+      callbackURL: "/",
+    });
+
+    if (error) {
+      console.error("GitHub sign in error:", error);
+      alert(error.message || "GitHub দিয়ে সাইন ইন করা যায়নি");
+    }
   };
 
   return (
@@ -51,7 +70,6 @@ const SignIn = () => {
         {/* Heading */}
         <div className="mb-5 text-center">
           <h1 className="text-2xl font-bold text-[#17251B]">সাইন ইন করুন</h1>
-
           <p className="mt-3 text-[16px] leading-5 text-gray-500">
             বিস্তারিত দাম, বাজার তুলনা ও প্রোফাইল দেখতে অ্যাকাউন্টে ঢুকুন।
           </p>
@@ -80,9 +98,7 @@ const SignIn = () => {
                 <Label className="mb-1 block text-lg font-medium text-[#26352A]">
                   ইমেইল
                 </Label>
-
                 <Input className="text-sm" placeholder="আপনার ইমেইল লিখুন" />
-
                 <FieldError />
               </TextField>
 
@@ -97,16 +113,12 @@ const SignIn = () => {
                 <Label className="mb-1 block text-lg font-medium text-[#26352A]">
                   পাসওয়ার্ড
                 </Label>
-
                 <Input
                   className="text-sm"
                   placeholder="আপনার পাসওয়ার্ড লিখুন"
                 />
-
                 <FieldError />
               </TextField>
-
-            
 
               {/* Submit */}
               <Button
@@ -129,20 +141,9 @@ const SignIn = () => {
           <div className="flex w-full flex-col gap-2 sm:flex-row">
             <Button
               type="button"
-              onClick={logIn}
               variant="tertiary"
               className="w-full"
-              onPress={async () => {
-                const { error } = await signIn.social({
-                  provider: "google",
-                  callbackURL: "/",
-                });
-
-                if (error) {
-                  console.error("Google sign in error:", error);
-                  alert(error.message || "Google দিয়ে সাইন ইন করা যায়নি");
-                }
-              }}
+              onPress={handleGoogleSignIn}
             >
               <Icon icon="devicon:google" />
               Google দিয়ে সাইন ইন
@@ -152,17 +153,7 @@ const SignIn = () => {
               type="button"
               variant="tertiary"
               className="w-full"
-              onPress={async () => {
-                const { error } = await signIn.social({
-                  provider: "github",
-                  callbackURL: "/",
-                });
-
-                if (error) {
-                  console.error("GitHub sign in error:", error);
-                  alert(error.message || "GitHub দিয়ে সাইন ইন করা যায়নি");
-                }
-              }}
+              onPress={handleGithubSignIn}
             >
               <Icon icon="mdi:github" />
               GitHub দিয়ে সাইন ইন

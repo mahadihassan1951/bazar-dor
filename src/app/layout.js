@@ -31,9 +31,12 @@ export default function RootLayout({ children }) {
     >
       <body suppressHydrationWarning className="min-h-full flex flex-col">
        <Suspense fallback={<div className="text-center py-10">লোড হচ্ছে...</div>}>
-        <Navbar />
-        <CategoriesPage />
-        <Marquee />
+       <header className="sticky top-0 z-50 bg-white border-b border-divider shadow-xs">
+            <Navbar />
+            <CategoriesPage />
+           
+          </header>
+           <Marquee />
         <main className="flex-1">{children}</main>
         </Suspense>
         <Footer />
