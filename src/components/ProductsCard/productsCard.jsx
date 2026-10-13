@@ -30,7 +30,7 @@ export default function ProductCard({ product }) {
           </div>
           <div>
             <h3 className="font-bold text-base text-default-900 leading-snug">
-              {nameBn || "স্বর্ণাছাি চাল"}
+              {nameBn }
             </h3>
             <p className="text-xs text-default-400 mt-0.5">
               {unit === "kg" ? "প্রতি কেজি" : unit || "প্রতি কেজি"}

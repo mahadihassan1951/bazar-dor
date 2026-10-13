@@ -1,4 +1,5 @@
 "use client";
+
 import { Button } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import React from "react";
@@ -48,7 +49,7 @@ const SignUp = () => {
     console.log("Sign up successful:", signUpData);
   };
 
-  // গুগল সাইন ইন হ্যান্ডেল করার ফাংশন
+  // Google Sign In
   const handleGoogleSignIn = async () => {
     const { error } = await signIn.social({
       provider: "google",
@@ -61,7 +62,7 @@ const SignUp = () => {
     }
   };
 
-  // GitHub Sign In হ্যান্ডলার
+  // GitHub Sign In
   const handleGithubSignIn = async () => {
     const { error } = await signIn.social({
       provider: "github",
@@ -75,11 +76,11 @@ const SignUp = () => {
   };
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-[#F0F5EF] px-5 py-8">
+    <main className="flex min-h-screen items-center justify-center bg-[#F0F5EF] px-3 py-6 sm:px-5 sm:py-8">
       <div className="w-full max-w-[450px]">
         {/* Heading */}
-        <div className="mb-5 text-center gap-3">
-          <h1 className="text-2xl font-bold text-[#17251B] ">
+        <div className="mb-5 gap-3 text-center">
+          <h1 className="text-2xl font-bold text-[#17251B]">
             অ্যাকাউন্ট তৈরি করুন
           </h1>
 
@@ -91,10 +92,11 @@ const SignUp = () => {
         {/* Sign up Card */}
         <Form
           onSubmit={onSubmit}
-          className="w-full rounded-xl border border-[#E1E9E0] bg-[#FAFCFA] p-4 sm:p-5"
+          className="w-full rounded-xl border border-[#E1E9E0] bg-[#FAFCFA] p-3 sm:p-5 md:p-6"
         >
           <Fieldset className="w-full">
             <FieldGroup className="gap-3">
+              {/* Name */}
               <TextField
                 isRequired
                 name="name"
@@ -105,7 +107,7 @@ const SignUp = () => {
                   return null;
                 }}
               >
-                <Label className="mb-1 block text-lg font-medium text-[#26352A]">
+                <Label className="mb-1 block text-base font-medium text-[#26352A] sm:text-lg">
                   নাম
                 </Label>
                 <Input className="text-sm" placeholder="নাম লিখুন" />
@@ -117,9 +119,10 @@ const SignUp = () => {
                 name="email"
                 type="email"
                 isRequired
+                autoComplete="off"
                 className="w-full"
               >
-                <Label className="mb-1 block text-lg font-medium text-[#26352A]">
+                <Label className="mb-1 block text-base font-medium text-[#26352A] sm:text-lg">
                   ইমেইল
                 </Label>
                 <Input placeholder="আপনার ইমেইল লিখুন" className="text-sm" />
@@ -131,24 +134,27 @@ const SignUp = () => {
                 name="password"
                 type="password"
                 isRequired
+                autoComplete="off"
                 minLength={8}
                 className="w-full"
               >
-                <Label className="mb-1 block text-lg font-medium text-[#26352A]">
+                <Label className="mb-1 block text-base font-medium text-[#26352A] sm:text-lg">
                   পাসওয়ার্ড
                 </Label>
                 <Input placeholder="পাসওয়ার্ড লিখুন" className="text-sm" />
                 <FieldError />
               </TextField>
 
+              {/* Password Confirmation */}
               <TextField
                 name="passwordConfirmation"
                 type="password"
                 isRequired
+                autoComplete="off"
                 minLength={8}
                 className="w-full"
               >
-                <Label className="mb-1 block text-lg font-medium text-[#26352A]">
+                <Label className="mb-1 block text-base font-medium text-[#26352A] sm:text-lg">
                   পাসওয়ার্ড নিশ্চিত করুন
                 </Label>
                 <Input
@@ -171,16 +177,16 @@ const SignUp = () => {
           {/* Divider */}
           <div className="my-4 flex w-full items-center gap-3">
             <div className="h-px flex-1 bg-[#DFE5DE]" />
-            <span className="text-[11px] text-gray-500">অথবা</span>
+            <span className="shrink-0 text-[11px] text-gray-500">অথবা</span>
             <div className="h-px flex-1 bg-[#DFE5DE]" />
           </div>
 
           {/* Social Sign In */}
-          <div className="flex w-full gap-2">
+          <div className="flex w-full flex-col gap-2 sm:flex-row">
             <Button
               type="button"
               variant="tertiary"
-              className="w-full"
+              className="w-full min-w-0 text-sm"
               onPress={handleGoogleSignIn}
             >
               <Icon icon="devicon:google" />
@@ -190,7 +196,7 @@ const SignUp = () => {
             <Button
               type="button"
               variant="tertiary"
-              className="w-full"
+              className="w-full min-w-0 text-sm"
               onPress={handleGithubSignIn}
             >
               <Icon icon="mdi:github" />
@@ -201,12 +207,12 @@ const SignUp = () => {
           {/* Sign In Link */}
           <p className="mt-4 w-full text-center text-[11px] text-gray-600">
             অ্যাকাউন্ট আছে?{" "}
-            <a
+            <Link
               href="/sign-in"
               className="font-semibold text-emerald-600 hover:text-emerald-700"
             >
               সাইন ইন করুন
-            </a>
+            </Link>
           </p>
         </Form>
 

@@ -2,11 +2,11 @@
 import React, { useEffect, useState } from "react";
 import baseUrl from "@/services/baseUrl";
 import Link from "next/link";
-import { usePathname } from "next/navigation"; // ১. usePathname ইমপোর্ট করা হলো
+import { usePathname } from "next/navigation";
 
 export default function CategoriesPage() {
   const [categories, setCategories] = useState([]);
-  const pathname = usePathname(); // ২. বর্তমান URL ট্র্যাক করার জন্য
+  const pathname = usePathname();
 
   useEffect(() => {
     fetch(`${baseUrl}/categories`)
@@ -16,26 +16,25 @@ export default function CategoriesPage() {
   }, []);
 
   return (
-    <div className="w-full py-4 sticky top-17 z-40 bg-background/80 backdrop-blur-md">
-      <div className="max-w-7xl mx-auto px-4">
-        <ul className="flex flex-row items-center justify-center gap-3 overflow-x-auto pb-2 scrollbar-hide">
+    <div className="w-full py-2 sm:py-3 md:py-4 sticky top-16 z-40 bg-background/80 backdrop-blur-md">
+      <div className="max-w-7xl mx-auto px-3 sm:px-5 md:px-6 lg:px-8">
+        <ul className="flex flex-row items-center justify-start md:justify-center gap-2 sm:gap-3 overflow-x-auto md:flex-wrap md:overflow-x-visible pb-2 md:pb-0 scrollbar-hide">
           {categories?.map((cat) => {
             const categoryPath = `/category/${cat?.slug}`;
-            // ৩. বর্তমান পেজের পাথ এবং ক্যাটাগরির পাথ এক কি না তা চেক করা হচ্ছে
             const isActive = pathname === categoryPath;
 
             return (
-              <li key={cat?.id || cat?._id} className="flex-shrink-0 list-none">
+              <li key={cat?.id || cat?._id} className="shrink-0 list-none">
                 <Link
-                  className={`flex items-center gap-2 px-4 py-2 rounded-full border transition-all text-center shadow-sm ${
+                  className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 md:px-4 lg:px-5 py-2 sm:py-2.5 rounded-full border transition-all text-center shadow-sm ${
                     isActive
-                      ? "bg-emerald-600 text-white border-emerald-600 font-semibold" // হাইলাইট স্টাইল (Active State)
-                      : "border-divider bg-background hover:bg-default-100 text-default-800" // সাধারণ স্টাইল
+                      ? "bg-emerald-600 text-white border-emerald-600 font-semibold"
+                      : "border-divider bg-background hover:bg-default-100 text-default-800"
                   }`}
                   href={categoryPath}
                 >
-                  <span className="text-sm">{cat?.icon}</span>
-                  <span className="text-sm whitespace-nowrap">
+                  <span className="text-xs sm:text-sm">{cat?.icon}</span>
+                  <span className="text-xs sm:text-sm whitespace-nowrap">
                     {cat?.nameBn}
                   </span>
                 </Link>

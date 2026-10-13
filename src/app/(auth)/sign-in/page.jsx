@@ -85,6 +85,7 @@ const SignIn = () => {
               {/* Email */}
               <TextField
                 isRequired
+                 autoComplete="off"
                 name="email"
                 type="email"
                 className="w-full"
@@ -107,6 +108,7 @@ const SignIn = () => {
                 isRequired
                 name="password"
                 type="password"
+                 autoComplete="off"
                 minLength={8}
                 className="w-full"
               >
