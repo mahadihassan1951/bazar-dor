@@ -34,9 +34,9 @@ export default function CategoryProducts({ params }) {
     <div className="max-w-7xl mx-auto px-4 py-6 space-y-6">
       <div className="max-w-7xl mx-auto space-y-4">
         {/* ১. প্রথম অংশ: ক্যাটাগরি টাইটেল ও সাবটাইটেল কার্ড */}
-        <div className="bg-default-50 border border-divider rounded-2xl p-6 shadow-xs">
+        <div className="bg-default-50  rounded-2xl p-6 shadow-xs">
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 flex items-center justify-center bg-background rounded-xl border border-divider shadow-xs text-2xl">
+            <div className="w-12 h-12 flex items-center justify-center bg-background rounded-xl  shadow-xs text-2xl">
               {categoryProducts[0]?.categoryIcon || "🍚"}
             </div>
             <div>

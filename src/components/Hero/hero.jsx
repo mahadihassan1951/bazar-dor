@@ -27,7 +27,7 @@ export default function Hero() {
 
   return (
     <section className=" px-4 py-1">
-      <div className="bg-default-50 border border-divider rounded-3xl p-2 sm:p-10 flex flex-col lg:flex-row items-center justify-between gap-8 shadow-xs">
+      <div className="bg-default-50  rounded-3xl p-2 sm:p-10 flex flex-col lg:flex-row items-center justify-between gap-8 shadow-xs">
         {/* Bam pasher text ebong button section */}
         <div className="flex flex-col items-start space-y-2 max-w-xl">
           {/* Real-time date badge */}

@@ -32,7 +32,7 @@ export default async function Marquee() {
             return (
               <div
                 key={itemId}
-                className="inline-flex items-center gap-2 px-4 border-r border-gray-200 text-sm font-medium text-gray-800"
+                className="inline-flex items-center gap-2 px-4   text-sm font-medium text-gray-800"
               >
                 {/* প্রোডাক্ট আইকন */}
                 <span className="text-base">{image || "🍚"}</span>

@@ -3,9 +3,14 @@ import baseUrl from "@/services/baseUrl";
 import Hero from "@/components/Hero/hero";
 import ProductCard from "@/components/ProductsCard/productsCard";
 import AllProducts from "@/components/AllProducts/allProducts";
+import { Suspense } from "react";
 
 const getProducts = async () => {
   const res = await fetch(`${baseUrl}/products`);
+
+  if (!res.ok) {
+    throw new Error("Products fetch করা যায়নি");
+  }
   const data = await res.json();
   return data;
 };
@@ -31,9 +36,11 @@ export default async function Home() {
           </p>
 
           <div className="mt-2 grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-3">
-            {downProducts.map((product) => (
+            <Suspense fallback={<span className="loading loading-dots loading-xl"></span>}>
+                {downProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
+            </Suspense>
           </div>
         </div>
 
@@ -58,3 +65,4 @@ export default async function Home() {
     </div>
   );
 }
+

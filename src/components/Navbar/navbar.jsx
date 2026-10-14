@@ -9,6 +9,7 @@ import logoImg from "../../../public/logo-icon.png";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [bengaliDate, setBengaliDate] = useState("");
   const router = useRouter();
   const pathname = usePathname();
@@ -48,8 +49,139 @@ export default function Navbar() {
 
   const closeMenu = () => setIsMenuOpen(false);
 
+  const ProfileMenu = () => {
+    const user = session?.user;
+
+    return (
+      <div className="relative">
+        {/* Profile Picture Button */}
+        <button
+          type="button"
+          onClick={() => setIsProfileOpen((prev) => !prev)}
+          aria-label="প্রোফাইল মেনু খুলুন"
+          aria-expanded={isProfileOpen}
+          className="flex items-center gap-2 rounded-full  bg-background p-1 pr-3 transition-colors hover:bg-default-100"
+        >
+          {user?.image ? (
+            <NextImage
+              src={user.image}
+              alt="Profile"
+              width={40}
+              height={40}
+              className="h-10 w-10 rounded-full object-cover"
+              unoptimized
+            />
+          ) : (
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-600 text-lg font-bold text-white">
+              {(user?.name || user?.email || "U").charAt(0).toUpperCase()}
+            </div>
+          )}
+
+          <span className="max-w-28 truncate text-sm font-semibold text-foreground">
+            {user?.name || "আমার অ্যাকাউন্ট"}
+          </span>
+
+          <svg
+            className={`h-4 w-4 transition-transform ${
+              isProfileOpen ? "rotate-180" : ""
+            }`}
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              fillRule="evenodd"
+              d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.09 1.032l-4.25 4.5a.75.75 0 01-1.09 0l-4.25-4.5a.75.75 0 01.02-1.052z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </button>
+
+        {/* Profile Popup */}
+        {isProfileOpen && (
+          <div className="absolute right-0 top-full z-[60] mt-3 w-72 overflow-hidden rounded-2xl border border-default-200 bg-background shadow-xl">
+            {/* User Information */}
+            <div className="border-b border-divider p-4">
+              <div className="flex items-center gap-3">
+                {user?.image ? (
+                  <NextImage
+                    src={user.image}
+                    alt="Profile"
+                    width={48}
+                    height={48}
+                    className="h-12 w-12 rounded-full object-cover"
+                    unoptimized
+                  />
+                ) : (
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-emerald-600 text-xl font-bold text-white">
+                    {(user?.name || user?.email || "U").charAt(0).toUpperCase()}
+                  </div>
+                )}
+
+                <div className="min-w-0">
+                  <p className="truncate font-bold text-foreground">
+                    {user?.name || "ব্যবহারকারী"}
+                  </p>
+                  <p className="truncate text-xs text-default-500">
+                    {user?.email}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* My Profile */}
+            <div className="p-2">
+              <button
+                type="button"
+                onClick={() => {
+                  setIsProfileOpen(false);
+                  setIsMenuOpen(false);
+                  router.push("/profile");
+                }}
+                className="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-default-100"
+              >
+                <svg
+                  className="h-5 w-5 text-emerald-600"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={1.8}
+                  aria-hidden="true"
+                >
+                  <circle cx="12" cy="8" r="4" />
+                  <path d="M4 21v-2a8 8 0 0116 0v2" />
+                </svg>
+                আমার প্রোফাইল
+              </button>
+
+              {/* Logout */}
+              <button
+                type="button"
+                onClick={handleLogout}
+                className="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold text-red-600 transition-colors hover:bg-red-50"
+              >
+                <svg
+                  className="h-5 w-5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={1.8}
+                  aria-hidden="true"
+                >
+                  <path d="M10 17l5-5-5-5M15 12H3" />
+                  <path d="M12 3h6a2 2 0 012 2v14a2 2 0 01-2 2h-6" />
+                </svg>
+                লগ আউট
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  };
+
   return (
-    <nav className="sticky top-0 z-50 w-full border-b border-divider bg-background/90 shadow-sm backdrop-blur-md">
+    <nav className="sticky top-0 z-50 w-full bg-background/90 shadow-sm backdrop-blur-md">
       <div className="mx-auto flex min-h-16 max-w-7xl items-center justify-between gap-3 px-3 sm:px-5 md:px-6 lg:px-8">
         {/* Logo and Date */}
         <Link
@@ -77,7 +209,9 @@ export default function Navbar() {
               className="mt-1 max-w-[190px] truncate text-[9px] leading-tight text-default-500 sm:max-w-none sm:text-[11px] md:text-xs"
               suppressHydrationWarning
             >
-              {bengaliDate || "লোড হচ্ছে..."}
+              {bengaliDate || (
+                <span className="loading loading-dots loading-xl"></span>
+              )}
             </span>
           </div>
         </Link>
@@ -85,15 +219,7 @@ export default function Navbar() {
         {/* Desktop and Tablet Auth Actions */}
         <div className="hidden items-center gap-2 sm:gap-3 md:flex">
           {!isPending && session?.user ? (
-            <Link href="/">
-              <Button
-                onPress={handleLogout}
-                className="rounded-xl bg-[#0485F7] px-4 font-semibold text-white transition-colors hover:bg-[#0369C9] md:px-5"
-                size="md"
-              >
-                লগ আউট
-              </Button>
-            </Link>
+            <ProfileMenu />
           ) : !isPending ? (
             <>
               <Link href="/sign-in">
@@ -124,7 +250,9 @@ export default function Navbar() {
               </Link>
             </>
           ) : (
-            <span className="text-xs text-default-400">লোড হচ্ছে...</span>
+            <span className="text-xs text-default-400">
+              <span className="loading loading-dots loading-xl"></span>
+            </span>
           )}
         </div>
 
@@ -167,28 +295,11 @@ export default function Navbar() {
       {isMenuOpen && (
         <div
           id="mobile-navbar-menu"
-          className="border-t border-divider bg-background px-4 py-4 shadow-lg md:hidden"
+          className=" bg-background px-4 py-4 shadow-lg md:hidden"
         >
           <div className="mx-auto flex max-w-7xl flex-col justify-end gap-3">
             {!isPending && session?.user ? (
-              <>
-                <div className="rounded-xl bg-default-100 px-4 py-3">
-                  <p className="text-xs text-default-500">
-                    লগ ইন করা অ্যাকাউন্ট
-                  </p>
-                  <p className="mt-1 break-all text-sm font-medium text-foreground">
-                    {session.user.email}
-                  </p>
-                </div>
-
-                <Button
-                  onPress={handleLogout}
-                  className="w-full rounded-xl bg-[#0485F7] font-semibold text-white"
-                  size="md"
-                >
-                  লগ আউট
-                </Button>
-              </>
+              <ProfileMenu />
             ) : !isPending ? (
               <>
                 <Link href="/sign-in">
@@ -219,7 +330,7 @@ export default function Navbar() {
               </>
             ) : (
               <p className="py-2 text-center text-sm text-default-400">
-                অ্যাকাউন্ট লোড হচ্ছে...
+                <span className="loading loading-dots loading-xl"></span>
               </p>
             )}
           </div>

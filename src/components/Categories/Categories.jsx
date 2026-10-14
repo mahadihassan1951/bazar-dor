@@ -16,7 +16,7 @@ export default function CategoriesPage() {
   }, []);
 
   return (
-    <div className="w-full py-2 sm:py-3 md:py-4 sticky top-16 z-40 bg-background/80 backdrop-blur-md">
+    <div className="w-full py-2 sm:py-3 md:py-4 sticky top-16 z-40 bg-background/80 ">
       <div className="max-w-7xl mx-auto px-3 sm:px-5 md:px-6 lg:px-8">
         <ul className="flex flex-row items-center justify-start md:justify-center gap-2 sm:gap-3 overflow-x-auto md:flex-wrap md:overflow-x-visible pb-2 md:pb-0 scrollbar-hide">
           {categories?.map((cat) => {
@@ -26,10 +26,10 @@ export default function CategoriesPage() {
             return (
               <li key={cat?.id || cat?._id} className="shrink-0 list-none">
                 <Link
-                  className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 md:px-4 lg:px-5 py-2 sm:py-2.5 rounded-full border transition-all text-center shadow-sm ${
+                  className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 md:px-4 lg:px-5 py-2 sm:py-2.5 rounded-full  transition-all text-center shadow-sm ${
                     isActive
                       ? "bg-emerald-600 text-white border-emerald-600 font-semibold"
-                      : "border-divider bg-background hover:bg-default-100 text-default-800"
+                      : " bg-background hover:bg-default-100 text-default-800"
                   }`}
                   href={categoryPath}
                 >

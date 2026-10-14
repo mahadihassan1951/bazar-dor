@@ -21,10 +21,10 @@ export default function AllProducts({ products }) {
       {/* একি div এর মধ্যে বাম পাশে টাইটেল এবং ডানপাশে সাজান ড্রপডাউন */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4  p-4 ">
         <p className="text-xl font-bold">সকল পণ্য </p>
-        
+
         <div className="flex items-center gap-2.5 w-full sm:w-auto justify-end">
           <span className="text-sm text-default-600 font-medium">সাজান</span>
-          <select 
+          <select
             value={sortOrder}
             onChange={(e) => setSortOrder(e.target.value)}
             className="px-4 py-2 rounded-xl border border-divider bg-background text-sm outline-none cursor-pointer"
@@ -34,7 +34,6 @@ export default function AllProducts({ products }) {
             <option value="high-to-low">বেশি দাম</option>
           </select>
         </div>
-        
       </div>
       <p>মোট {sortedProducts.length} টি পণ্য দেখানো হচ্ছে</p>
 
