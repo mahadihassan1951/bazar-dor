@@ -22,10 +22,10 @@ export default function ProductCard({ product }) {
 
   return (
     <Link href={`/product/${product?.id}`}>
-      <div className="bg-default-50   rounded-2xl p-5 shadow-xl hover:shadow-md transition-all flex flex-col justify-between">
+      <div className="bg-[#FAFCFA]  rounded-2xl p-5 shadow-xl hover:shadow-md transition-all flex flex-col justify-between">
         {/* ওপরের অংশ: আইকন, নাম ও একক */}
         <div className="flex items-center gap-3.5">
-          <div className="w-12 h-12 flex items-center justify-center bg-background rounded-xl border border-divider shadow-xs text-2xl flex-shrink-0">
+          <div className="w-12 h-12 flex items-center justify-center bg-background rounded-xl  shadow-xs text-2xl flex-shrink-0">
             {icon || "🍚"}
           </div>
           <div>

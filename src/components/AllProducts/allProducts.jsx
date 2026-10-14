@@ -20,7 +20,7 @@ export default function AllProducts({ products }) {
     <div className="space-y-4">
       {/* একি div এর মধ্যে বাম পাশে টাইটেল এবং ডানপাশে সাজান ড্রপডাউন */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4  p-4 ">
-        <p className="text-xl font-bold">সকল পণ্য </p>
+        <p className="text-xl font-bold sm:text-2xl">সকল পণ্য </p>
 
         <div className="flex items-center gap-2.5 w-full sm:w-auto justify-end">
           <span className="text-sm text-default-600 font-medium">সাজান</span>
@@ -38,7 +38,7 @@ export default function AllProducts({ products }) {
       <p>মোট {sortedProducts.length} টি পণ্য দেখানো হচ্ছে</p>
 
       {/* প্রোডাক্ট গ্রিড */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {sortedProducts.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}

@@ -1,11 +1,13 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar/navbar";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import CategoriesPage from "@/components/Categories/Categories";
 import { Suspense } from "react";
 import Footer from "@/components/Footer/footer";
 import Marquee from "@/components/Marquee/marquee";
+import ToastHandler from "@/components/ToastHandler/ToastHandler";
 
 
 const geistSans = Geist({
@@ -31,16 +33,24 @@ export default function RootLayout({ children }) {
     >
       <body suppressHydrationWarning className="min-h-full flex flex-col">
        <Suspense fallback={<div className="text-center py-10"><span className="loading loading-dots loading-xl"></span></div>}>
-       <header className="sticky top-0 z-50 bg-white border-b border-divider shadow-xs">
+       <header className="sticky top-0 z-50 bg-white  shadow-xs">
             <Navbar />
             <CategoriesPage />
            
           </header>
            <Marquee />
-        <main className="flex-1">{children}</main>
+        <main className="flex-1 bg-[#F0F5F0]">{children}</main>
+       
         </Suspense>
         <Footer />
-        
+        <ToastHandler  />
+
+            
+         <ToastContainer
+          position="top-center"
+          autoClose={3000}
+          theme="colored"
+         />
       </body>
     </html>
   );

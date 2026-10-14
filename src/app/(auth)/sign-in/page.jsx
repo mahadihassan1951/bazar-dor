@@ -1,4 +1,6 @@
 "use client";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 import React from "react";
 import { Button } from "@heroui/react";
@@ -16,6 +18,8 @@ import Link from "next/link";
 import { signIn } from "@/lib/auth-client";
 
 const SignIn = () => {
+  const router = useRouter();
+
   const onSubmit = async (e) => {
     e.preventDefault();
 
@@ -23,44 +27,90 @@ const SignIn = () => {
     const email = String(formData.get("email") ?? "").trim();
     const password = String(formData.get("password") ?? "");
 
-    const { data: signInData, error } = await signIn.email({
-      email,
-      password,
-      callbackURL: "/",
-    });
+    try {
+      const { error } = await signIn.email({
+        email,
+        password,
+      });
 
-    if (error) {
-      console.error("Sign in error:", error);
-      alert(error.message || "সাইন ইন করা যায়নি");
-      return;
+      if (error) {
+        toast.error(error.message || "সাইন ইন করা যায়নি");
+        return;
+      }
+
+      toast.success("সাইন ইন সফল হয়েছে!");
+
+      setTimeout(() => {
+        router.replace("/");
+        router.refresh();
+      }, 2000);
+    } catch (error) {
+      toast.error(
+        error instanceof Error ? error.message : "সাইন ইন করা যায়নি",
+      );
     }
-
-    console.log("Sign in success:", signInData);
   };
 
   // Google Sign In হ্যান্ডলার
   const handleGoogleSignIn = async () => {
-    const { error } = await signIn.social({
-      provider: "google",
-      callbackURL: "/",
-    });
+    try {
+      sessionStorage.setItem(
+        "auth-toast-message",
+        "Google দিয়ে সাইন ইন সফল হয়েছে!",
+      );
+      sessionStorage.setItem("auth-toast-type", "success");
 
-    if (error) {
-      console.error("Google sign in error:", error);
-      alert(error.message || "Google দিয়ে সাইন ইন করা যায়নি");
+      const { error } = await signIn.social({
+        provider: "google",
+        callbackURL: "/",
+      });
+
+      if (error) {
+        sessionStorage.removeItem("auth-toast-message");
+        sessionStorage.removeItem("auth-toast-type");
+
+        toast.error(error.message || "Google দিয়ে সাইন ইন করা যায়নি");
+      }
+    } catch (error) {
+      sessionStorage.removeItem("auth-toast-message");
+      sessionStorage.removeItem("auth-toast-type");
+
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "Google দিয়ে সাইন ইন করা যায়নি",
+      );
     }
   };
 
-  // GitHub Sign In হ্যান্ডলার
   const handleGithubSignIn = async () => {
-    const { error } = await signIn.social({
-      provider: "github",
-      callbackURL: "/",
-    });
+    try {
+      sessionStorage.setItem(
+        "auth-toast-message",
+        "GitHub দিয়ে সাইন ইন সফল হয়েছে!",
+      );
+      sessionStorage.setItem("auth-toast-type", "success");
 
-    if (error) {
-      console.error("GitHub sign in error:", error);
-      alert(error.message || "GitHub দিয়ে সাইন ইন করা যায়নি");
+      const { error } = await signIn.social({
+        provider: "github",
+        callbackURL: "/",
+      });
+
+      if (error) {
+        sessionStorage.removeItem("auth-toast-message");
+        sessionStorage.removeItem("auth-toast-type");
+
+        toast.error(error.message || "GitHub দিয়ে সাইন ইন করা যায়নি");
+      }
+    } catch (error) {
+      sessionStorage.removeItem("auth-toast-message");
+      sessionStorage.removeItem("auth-toast-type");
+
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "GitHub দিয়ে সাইন ইন করা যায়নি",
+      );
     }
   };
 
@@ -85,7 +135,7 @@ const SignIn = () => {
               {/* Email */}
               <TextField
                 isRequired
-                 autoComplete="off"
+                autoComplete="off"
                 name="email"
                 type="email"
                 className="w-full"
@@ -108,7 +158,7 @@ const SignIn = () => {
                 isRequired
                 name="password"
                 type="password"
-                 autoComplete="off"
+                autoComplete="off"
                 minLength={8}
                 className="w-full"
               >

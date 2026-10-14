@@ -16,9 +16,9 @@ export default function CategoriesPage() {
   }, []);
 
   return (
-    <div className="w-full py-2 sm:py-3 md:py-4 sticky top-16 z-40 bg-background/80 ">
-      <div className="max-w-7xl mx-auto px-3 sm:px-5 md:px-6 lg:px-8">
-        <ul className="flex flex-row items-center justify-start md:justify-center gap-2 sm:gap-3 overflow-x-auto md:flex-wrap md:overflow-x-visible pb-2 md:pb-0 scrollbar-hide">
+    <div className="w-full py-2 sm:py-3 md:py-4 sticky top-16 z-40  ">
+      <div className="max-w-7xl mx-auto px-3 sm:px-5 md:px-6 lg:px-4">
+        <ul className="flex flex-row  justify-start md:justify-start gap-2 sm:gap-3 overflow-x-auto md:flex-wrap md:overflow-x-visible pb-2 md:pb-0 scrollbar-hide">
           {categories?.map((cat) => {
             const categoryPath = `/category/${cat?.slug}`;
             const isActive = pathname === categoryPath;

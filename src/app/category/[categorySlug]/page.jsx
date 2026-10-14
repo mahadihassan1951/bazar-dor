@@ -31,12 +31,12 @@ export default function CategoryProducts({ params }) {
   });
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-6 space-y-6">
+    <div className=" max-w-7xl mx-auto px-4 py-6 space-y-6">
       <div className="max-w-7xl mx-auto space-y-4">
         {/* ১. প্রথম অংশ: ক্যাটাগরি টাইটেল ও সাবটাইটেল কার্ড */}
-        <div className="bg-default-50  rounded-2xl p-6 shadow-xs">
+        <div className="bg-[#F5F5F5]  rounded-2xl p-6 shadow-xs">
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 flex items-center justify-center bg-background rounded-xl  shadow-xs text-2xl">
+            <div className="bg-[#F5F5F5] w-12 h-12 flex items-center justify-center  rounded-xl  shadow-xs text-2xl">
               {categoryProducts[0]?.categoryIcon || "🍚"}
             </div>
             <div>
@@ -51,7 +51,7 @@ export default function CategoryProducts({ params }) {
         </div>
 
         {/* ২. দ্বিতীয় অংশ: সার্চ ও সর্ট বার কার্ড */}
-        <div className="bg-default-50 border border-divider rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xs">
+        <div className="bg-[#F5F5F5]   rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xs">
           {/* সার্চ ইনপুট */}
           <span></span>
 

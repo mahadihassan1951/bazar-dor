@@ -26,8 +26,8 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className=" px-4 py-1">
-      <div className="bg-default-50  rounded-3xl p-2 sm:p-10 flex flex-col lg:flex-row items-center justify-between gap-8 shadow-xs">
+    <section className=" px-4 py-1 ">
+      <div className="bg-[#FAFCFA]  rounded-3xl p-2 sm:p-10 flex flex-col lg:flex-row items-center justify-between gap-8 shadow-xs">
         {/* Bam pasher text ebong button section */}
         <div className="flex flex-col items-start space-y-2 max-w-xl">
           {/* Real-time date badge */}
@@ -35,7 +35,11 @@ export default function Hero() {
             className="px-3 py-1 rounded-full bg-success-50 text-success text-xs font-medium"
             suppressHydrationWarning
           >
-            {bengaliDate || "লোড হচ্ছে..."}
+            {bengaliDate ? (
+              bengaliDate
+            ) : (
+              <span className="loading loading-dots loading-xl"></span>
+            )}
           </div>
 
           {/* Mukhya title */}
@@ -51,7 +55,7 @@ export default function Hero() {
 
           {/* 'Sob ponno dekhun' button */}
           <div className="pt-2">
-            <Link href="/products" className="no-underline">
+            <Link href="/" className="no-underline">
               <Button
                 color="success"
                 size="md"

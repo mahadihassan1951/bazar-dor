@@ -1,6 +1,7 @@
 import React, { Suspense } from "react";
 import baseUrl from "@/services/baseUrl";
 import Link from "next/link";
+import { connection } from "next/server";
 
 // ১. নির্দিষ্ট প্রোডাক্টের ডেটা ফেচ করার ফাংশন
 async function getProductDetails(id) {
@@ -74,7 +75,7 @@ async function ProductDetailsContent({ params }) {
   return (
     <div className="max-w-7xl mx-auto px-4 py-6 space-y-6">
       {/* ব্রেডক্রাম্ব */}
-      <div className="flex items-center gap-2 text-sm text-default-500">
+      <div className=" flex items-center gap-2 text-sm text-default-500">
         <Link href="/" className="hover:underline">
           হোম
         </Link>
@@ -85,12 +86,12 @@ async function ProductDetailsContent({ params }) {
       </div>
 
       {/* হিরো সেকশন */}
-      <div className="bg-default-50 border border-divider rounded-3xl p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-xs">
-        <div className="flex items-center gap-4">
-          <div className="w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center bg-background rounded-2xl border border-divider shadow-xs text-3xl sm:text-4xl flex-shrink-0">
+      <div className="bg-[#FAFCFA] rounded-3xl p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-xs">
+        <div className=" bg-[#F5F5F5] flex items-center gap-4 rounded-2xl p-8 ">
+          <div className="  w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center bg-background rounded-2xl  shadow-xs text-3xl sm:text-4xl flex-shrink-0">
             {icon || "🍚"}
           </div>
-          <div>
+          <div className="">
             <h1 className="text-2xl sm:text-3xl font-bold text-default-900 tracking-tight">
               {nameBn}
             </h1>
@@ -109,8 +110,8 @@ async function ProductDetailsContent({ params }) {
         </div>
 
         {/* আজকের দাম ও ব্যাজ কার্ড (ডানপাশ) */}
-        <div className="bg-background border border-divider rounded-2xl p-4 sm:px-6 sm:py-4 flex flex-col items-end justify-center shadow-xs w-full md:w-auto">
-          <span className="text-xs text-default-500 mb-1">আজকের দাম</span>
+        <div className="bg-[#F5F5F5]  rounded-2xl p-4 sm:px-6 sm:py-4 flex flex-col items-end justify-center shadow-xs w-full md:w-auto">
+          <span className="text-xs  text-default-500 mb-1">আজকের দাম</span>
           <div className="flex items-baseline gap-2">
             <span className="text-2xl sm:text-3xl font-extrabold text-default-900">
               {today}
@@ -130,12 +131,12 @@ async function ProductDetailsContent({ params }) {
 
       {/* বাজারভিত্তিক আজকের দাম টেবিল */}
 
-      <div className="bg-default-50 border border-divider rounded-3xl p-6 shadow-xs space-y-4">
+      <div className="bg-[#FAFCFA] rounded-3xl p-6 shadow-xs space-y-4">
         {/* দামের সারসংক্ষেপ (Summary Cards) */}
         <h2 className="text-lg font-bold text-default-900">দামের সারসংক্ষেপ</h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {/* সর্বনিম্ন দর */}
-          <div className="bg-default-50 border border-divider rounded-2xl p-5 shadow-xs space-y-1">
+          <div className="bg-[#F5F5F5]  rounded-2xl p-5 shadow-xs space-y-1">
             <p className="text-xs text-default-500">সর্বনিম্ন দর</p>
             <div className="flex items-baseline gap-1.5">
               <h3 className="text-2xl font-bold text-success">
@@ -148,7 +149,7 @@ async function ProductDetailsContent({ params }) {
           </div>
 
           {/* সর্বাধিক দর */}
-          <div className="bg-default-50 border border-divider rounded-2xl p-5 shadow-xs space-y-1">
+          <div className="bg-[#F5F5F5]  rounded-2xl p-5 shadow-xs space-y-1">
             <p className="text-xs text-default-500">সর্বাধিক দর</p>
             <div className="flex items-baseline gap-1.5">
               <h3 className="text-2xl font-bold text-danger">
@@ -160,7 +161,7 @@ async function ProductDetailsContent({ params }) {
 
           {/* গড় দর */}
 
-          <div className="bg-default-50 border border-divider rounded-2xl p-5 shadow-xs space-y-1">
+          <div className="bg-[#F5F5F5]  rounded-2xl p-5 shadow-xs space-y-1">
             <p className="text-xs text-default-500">গড় দর</p>
             <div className="flex items-baseline gap-1.5">
               <h3 className="text-2xl font-bold text-default-900">
@@ -179,12 +180,22 @@ async function ProductDetailsContent({ params }) {
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="border-b border-divider text-xs text-default-500">
-                <th className="py-3 px-4 font-medium">বাজার</th>
-                <th className="py-3 px-4 font-medium">বিভাগ</th>
-                <th className="py-3 px-4 font-medium">সর্বনিম্ন</th>
-                <th className="py-3 px-4 font-medium">সর্বাধিক</th>
-                <th className="py-3 px-4 font-medium text-right">গড়</th>
+              <tr className=" text-xs text-default-500">
+                <th className="py-3 px-4 font-medium text-xl text-gray-500">
+                  বাজার
+                </th>
+                <th className="py-3 px-4 font-medium text-xl text-gray-500">
+                  বিভাগ
+                </th>
+                <th className="py-3 px-4 font-medium text-xl text-gray-500">
+                  সর্বনিম্ন
+                </th>
+                <th className="py-3 px-4 font-medium text-xl text-gray-500">
+                  সর্বাধিক
+                </th>
+                <th className="py-3 px-4 font-medium text-xl text-gray-500 text-right">
+                  গড়
+                </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-divider/50 text-sm">
@@ -222,11 +233,13 @@ async function ProductDetailsContent({ params }) {
 }
 
 // ৩. মেইন পেজ কম্পোনেন্ট (Next.js Suspense সহ)
-export default function ProductDetailsPage({ params }) {
+export default function ProductDetailsPage({ params }) { connection();
   return (
     <Suspense
       fallback={
-        <div className="text-center py-20">প্রোডাক্ট ডিটেইলস লোড হচ্ছে...</div>
+        <div className="text-center py-20">
+          <span className="loading loading-dots loading-xl"></span>
+        </div>
       }
     >
       <ProductDetailsContent params={params} />

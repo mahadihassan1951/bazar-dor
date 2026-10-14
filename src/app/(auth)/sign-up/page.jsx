@@ -1,5 +1,6 @@
 "use client";
-
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 import { Button } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import React from "react";
@@ -16,6 +17,7 @@ import Link from "next/link";
 import { signUp, signIn } from "@/lib/auth-client";
 
 const SignUp = () => {
+  const router = useRouter();
   const onSubmit = async (e) => {
     e.preventDefault();
 
@@ -29,49 +31,93 @@ const SignUp = () => {
     );
 
     if (password !== passwordConfirmation) {
-      alert("দুটি পাসওয়ার্ড মিলছে না");
+      toast.error("দুটি পাসওয়ার্ড মিলছে না");
       return;
     }
 
-    const { data: signUpData, error } = await signUp.email({
-      name,
-      email,
-      password,
-      callbackURL: "/",
-    });
+    try {
+      const { error } = await signUp.email({
+        name,
+        email,
+        password,
+      });
 
-    if (error) {
-      console.error("Sign up error:", error);
-      alert(error.message || "অ্যাকাউন্ট তৈরি করা যায়নি");
-      return;
+      if (error) {
+        toast.error(error.message || "অ্যাকাউন্ট তৈরি করা যায়নি");
+        return;
+      }
+
+      toast.success("অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে!");
+
+      setTimeout(() => {
+        router.replace("/sign-in");
+        router.refresh();
+      }, 800);
+    } catch (error) {
+      toast.error(error.message || "অ্যাকাউন্ট তৈরি করা যায়নি");
     }
-
-    console.log("Sign up successful:", signUpData);
   };
 
   // Google Sign In
   const handleGoogleSignIn = async () => {
-    const { error } = await signIn.social({
-      provider: "google",
-      callbackURL: "/",
-    });
+    try {
+      sessionStorage.setItem(
+        "auth-toast-message",
+        "Google দিয়ে সাইন ইন সফল হয়েছে!",
+      );
+      sessionStorage.setItem("auth-toast-type", "success");
 
-    if (error) {
-      console.error("Google sign in error:", error);
-      alert(error.message || "Google দিয়ে সাইন ইন করা যায়নি");
+      const { error } = await signIn.social({
+        provider: "google",
+        callbackURL: "/",
+      });
+
+      if (error) {
+        sessionStorage.removeItem("auth-toast-message");
+        sessionStorage.removeItem("auth-toast-type");
+
+        toast.error(error.message || "Google দিয়ে সাইন ইন করা যায়নি");
+      }
+    } catch (error) {
+      sessionStorage.removeItem("auth-toast-message");
+      sessionStorage.removeItem("auth-toast-type");
+
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "Google দিয়ে সাইন ইন করা যায়নি",
+      );
     }
   };
 
-  // GitHub Sign In
   const handleGithubSignIn = async () => {
-    const { error } = await signIn.social({
-      provider: "github",
-      callbackURL: "/",
-    });
+    try {
+      sessionStorage.setItem(
+        "auth-toast-message",
+        "GitHub দিয়ে সাইন ইন সফল হয়েছে!",
+      );
+      sessionStorage.setItem("auth-toast-type", "success");
 
-    if (error) {
-      console.error("GitHub sign in error:", error);
-      alert(error.message || "GitHub দিয়ে সাইন ইন করা যায়নি");
+      const { error } = await signIn.social({
+        provider: "github",
+        callbackURL: "/",
+      });
+
+      if (error) {
+        sessionStorage.removeItem("auth-toast-message");
+        sessionStorage.removeItem("auth-toast-type");
+
+        toast.error(error.message || "GitHub দিয়ে সাইন ইন করা যায়নি");
+      }
+    } catch (error) {
+      sessionStorage.removeItem("auth-toast-message");
+      sessionStorage.removeItem("auth-toast-type");
+
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "GitHub দিয়ে সাইন ইন করা যায়নি",
+      );
     }
   };
 
