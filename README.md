@@ -1,36 +1,35 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+🛒 বাজার দর (BazarDor)
 
-## Getting Started
+BazarDor is a modern and user-friendly online marketplace designed to help users explore products, browse categories, and manage their accounts easily. The project provides a simple shopping experience with a responsive interface and secure authentication.
 
-First, run the development server:
+🚀 Technologies Used
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Next.js – React framework for building the web application
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+React.js – Component-based user interface
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+JavaScript (ES6+) – Application logic
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Tailwind CSS – Responsive styling and UI design
 
-## Learn More
+HeroUI – UI components
 
-To learn more about Next.js, take a look at the following resources:
+Better Auth – Authentication and session management
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+MongoDB – Database for storing application and authentication data
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+React Hot Toast – Toast notifications
 
-## Deploy on Vercel
+Vercel – Deployment and hosting
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+✨ Key Features
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+User Authentication – Sign up and sign in using email and password, with Google and GitHub authentication options.
+
+Product Browsing – Explore products and view product information through a user-friendly interface.
+
+Category Navigation – Browse product categories to find items more easily.
+
+User Profile Management – View profile information, update account details, and sign out.
+
+Responsive Design – Enjoy a consistent experience on mobile, tablet, and desktop devices.

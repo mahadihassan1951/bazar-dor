@@ -1,8 +1,8 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar/navbar";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import  { Toaster } from "react-hot-toast";
+
 import CategoriesPage from "@/components/Categories/Categories";
 import { Suspense } from "react";
 import Footer from "@/components/Footer/footer";
@@ -46,11 +46,13 @@ export default function RootLayout({ children }) {
         <ToastHandler  />
 
             
-         <ToastContainer
-          position="top-center"
-          autoClose={3000}
-          theme="colored"
-         />
+         <Toaster
+         position="top-center"
+         reverseOrder={false}
+         toastOptions={{
+         duration: 3000,
+          }}
+        />
       </body>
     </html>
   );

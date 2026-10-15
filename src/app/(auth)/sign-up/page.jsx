@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import { Button } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import React from "react";
